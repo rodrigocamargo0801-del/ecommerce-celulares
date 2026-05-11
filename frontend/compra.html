@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fluxo de Compra</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
+        h1 { color: #333; margin-bottom: 30px; }
+        .step { margin-bottom: 40px; padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 4px solid #3498db; }
+        .step h2 { color: #3498db; margin-bottom: 15px; }
+        .produto { background: white; padding: 15px; border: 1px solid #ddd; border-radius: 4px; margin: 10px 0; display: flex; gap: 15px; align-items: center; }
+        .produto-img { width: 100px; height: 100px; background: #f0f0f0; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+        .produto-info { flex: 1; }
+        .preco { color: #27ae60; font-size: 20px; font-weight: bold; }
+        button { background: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 10px 5px 10px 0; }
+        button:hover { background: #2980b9; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; }
+        .success { background: #d4edda; color: #155724; padding: 15px; border-radius: 4px; margin: 20px 0; }
+        .error { background: #f8d7da; color: #721c24; padding: 15px; border-radius: 4px; margin: 20px 0; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Fluxo Completo de Compra</h1>
+
+        <!-- PASSO 1: CATÁLOGO -->
+        <div class="step" id="passo1">
+            <h2>1️⃣ Catálogo de Produtos</h2>
+            <div id="catalogo">
+                <div class="produto">
+                    <div class="produto-img">📱</div>
+                    <div class="produto-info">
+                        <h3>iPhone 15 Pro</h3>
+                        <p>Apple - 6.1" OLED, A17 Pro, 256GB</p>
+                        <div class="preco">R$ 4.999,00</div>
+                        <button onclick="adicionarCarrinho('001', 'iPhone 15 Pro', 4999)">🛒 Adicionar</button>
+                    </div>
+                </div>
+                <div class="produto">
+                    <div class="produto-img">📱</div>
+                    <div class="produto-info">
+                        <h3>Samsung Galaxy S24</h3>
+                        <p>Samsung - 6.2" AMOLED, Snapdragon 8, 256GB</p>
+                        <div class="preco">R$ 4.499,00</div>
+                        <button onclick="adicionarCarrinho('002', 'Samsung Galaxy S24', 4499)">🛒 Adicionar</button>
+                    </div>
+                </div>
+                <div class="produto">
+                    <div class="produto-img">📱</div>
+                    <div class="produto-info">
+                        <h3>Xiaomi 14 Ultra</h3>
+                        <p>Xiaomi - 6.73" AMOLED, Snapdragon 8, 512GB</p>
+                        <div class="preco">R$ 2.999,00</div>
+                        <button onclick="adicionarCarrinho('003', 'Xiaomi 14 Ultra', 2999)">🛒 Adicionar</button>
+                    </div>
+                </div>
+                <div class="produto">
+                    <div class="produto-img">📱</div>
+                    <div class="produto-info">
+                        <h3>iPhone 15</h3>
+                        <p>Apple - 6.1" OLED, A16 Bionic, 128GB</p>
+                        <div class="preco">R$ 3.999,00</div>
+                        <button onclick="adicionarCarrinho('004', 'iPhone 15', 3999)">🛒 Adicionar</button>
+                    </div>
+                </div>
+                <div class="produto">
+                    <div class="produto-img">📱</div>
+                    <div class="produto-info">
+                        <h3>Samsung Galaxy A54</h3>
+                        <p>Samsung - 6.4" AMOLED, Exynos 1280, 128GB</p>
+                        <div class="preco">R$ 1.999,00</div>
+                        <button onclick="adicionarCarrinho('005', 'Samsung Galaxy A54', 1999)">🛒 Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSO 2: CARRINHO -->
+        <div class="step hidden" id="passo2">
+            <h2>2️⃣ Carrinho</h2>
+            <div id="carrinho-items"></div>
+            <h3 style="margin-top: 20px;">Resumo:</h3>
+            <p>Subtotal: R$ <span id="subtotal">0,00</span></p>
+            <p>Frete: R$ 50,00</p>
+            <p style="font-size: 18px; font-weight: bold;">Total: R$ <span id="total">50,00</span></p>
+            <button onclick="irParaCheckout()">✅ Finalizar Compra</button>
+            <button onclick="voltarCatalogo()">← Voltar</button>
+        </div>
+
+        <!-- PASSO 3: LOGIN -->
+        <div class="step hidden" id="passo3">
+            <h2>3️⃣ Login</h2>
+            <label>Email:</label>
+            <input type="email" id="email" placeholder="joao@email.com" value="joao@email.com">
+            <label>Senha:</label>
+            <input type="password" id="senha" placeholder="senha123456" value="senha123456">
+            <button onclick="fazerLogin()">🔐 Entrar</button>
+            <button onclick="mostrarCarrinho()">← Voltar</button>
+        </div>
+
+        <!-- PASSO 4: CHECKOUT -->
+        <div class="step hidden" id="passo4">
+            <h2>4️⃣ Endereço de Entrega</h2>
+            <label>Rua:</label>
+            <input type="text" id="rua" placeholder="Avenida Principal">
+            <label>Número:</label>
+            <input type="text" id="numero" placeholder="100">
+            <label>Complemento:</label>
+            <input type="text" id="complemento" placeholder="Apto 200">
+            <label>Cidade:</label>
+            <input type="text" id="cidade" placeholder="São Paulo">
+            <label>Estado:</label>
+            <input type="text" id="estado" placeholder="SP" maxlength="2">
+            <label>CEP:</label>
+            <input type="text" id="cep" placeholder="01234-567">
+
+            <h3 style="margin-top: 20px;">Método de Pagamento:</h3>
+            <select id="pagamento">
+                <option value="cartao">💳 Cartão de Crédito</option>
+                <option value="pix">📱 PIX</option>
+                <option value="boleto">📄 Boleto</option>
+            </select>
+
+            <button onclick="confirmarPedido()">✅ Confirmar Pedido</button>
+            <button onclick="voltarLogin()">← Voltar</button>
+        </div>
+
+        <!-- PASSO 5: SUCESSO -->
+        <div class="step hidden" id="passo5">
+            <h2>5️⃣ Pedido Confirmado! 🎉</h2>
+            <div class="success">
+                <h3>✅ Seu pedido foi criado com sucesso!</h3>
+                <p><strong>Número do Pedido:</strong> <span id="numero-pedido">12345</span></p>
+                <p><strong>Status:</strong> Pendente de Pagamento</p>
+                <p><strong>Total:</strong> R$ <span id="total-pedido">0,00</span></p>
+                <p style="margin-top: 20px;">Um email de confirmação foi enviado para seu endereço de email.</p>
+            </div>
+            <button onclick="voltarCatalogo()">🏠 Voltar ao Catálogo</button>
+        </div>
+    </div>
+
+    <script>
+        let carrinho = [];
+        let usuarioLogado = false;
+
+        function adicionarCarrinho(id, nome, preco) {
+            carrinho.push({ id, nome, preco });
+            alert(`✅ ${nome} adicionado ao carrinho!`);
+            mostrarCarrinho();
+        }
+
+        function mostrarCarrinho() {
+            document.getElementById('passo1').classList.add('hidden');
+            document.getElementById('passo2').classList.remove('hidden');
+
+            const html = carrinho.map((item, i) => `
+                <div class="produto">
+                    <p><strong>${item.nome}</strong></p>
+                    <p>R$ ${item.preco.toFixed(2)}</p>
+                    <button onclick="removerCarrinho(${i})">❌ Remover</button>
+                </div>
+            `).join('');
+
+            document.getElementById('carrinho-items').innerHTML = html;
+            calcularTotal();
+        }
+
+        function calcularTotal() {
+            const subtotal = carrinho.reduce((sum, item) => sum + item.preco, 0);
+            const frete = 50;
+            const total = subtotal + frete;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('total').textContent = total.toFixed(2);
+        }
+
+        function removerCarrinho(index) {
+            carrinho.splice(index, 1);
+            mostrarCarrinho();
+        }
+
+        function irParaCheckout() {
+            if (carrinho.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+            document.getElementById('passo2').classList.add('hidden');
+            document.getElementById('passo3').classList.remove('hidden');
+        }
+
+        function fazerLogin() {
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            if (email === 'joao@email.com' && senha === 'senha123456') {
+                usuarioLogado = true;
+                document.getElementById('passo3').classList.add('hidden');
+                document.getElementById('passo4').classList.remove('hidden');
+            } else {
+                alert('❌ Email ou senha incorretos!');
+            }
+        }
+
+        function confirmarPedido() {
+            const rua = document.getElementById('rua').value;
+            const numero = document.getElementById('numero').value;
+            const cidade = document.getElementById('cidade').value;
+
+            if (!rua || !numero || !cidade) {
+                alert('❌ Preencha todos os campos!');
+                return;
+            }
+
+            const numeroPedido = Math.floor(Math.random() * 100000);
+            const subtotal = carrinho.reduce((sum, item) => sum + item.preco, 0);
+            const total = subtotal + 50;
+
+            document.getElementById('numero-pedido').textContent = numeroPedido;
+            document.getElementById('total-pedido').textContent = total.toFixed(2);
+
+            document.getElementById('passo4').classList.add('hidden');
+            document.getElementById('passo5').classList.remove('hidden');
+
+            console.log('✅ PEDIDO CRIADO COM SUCESSO!');
+            console.log('Número:', numeroPedido);
+            console.log('Total:', total);
+        }
+
+        function voltarCatalogo() {
+            carrinho = [];
+            usuarioLogado = false;
+            document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+            document.getElementById('passo1').classList.remove('hidden');
+        }
+
+        function voltarLogin() {
+            document.getElementById('passo4').classList.add('hidden');
+            document.getElementById('passo3').classList.remove('hidden');
+        }
+
+        function mostrarCarrinho() {
+            document.getElementById('passo1').classList.add('hidden');
+            document.getElementById('passo2').classList.remove('hidden');
+
+            const html = carrinho.map((item, i) => `
+                <div class="produto">
+                    <p><strong>${item.nome}</strong></p>
+                    <p>R$ ${item.preco.toFixed(2)}</p>
+                    <button onclick="removerCarrinho(${i})">❌ Remover</button>
+                </div>
+            `).join('');
+
+            document.getElementById('carrinho-items').innerHTML = html;
+            calcularTotal();
+        }
+    </script>
+</body>
+</html>

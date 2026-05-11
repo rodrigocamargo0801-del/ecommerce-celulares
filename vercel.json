@@ -1,25 +1,12 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "echo 'Build skipped'",
   "outputDirectory": "frontend",
-  "env": {
-    "JWT_SECRET": "@jwt_secret",
-    "STRIPE_SECRET_KEY": "@stripe_secret_key",
-    "SENDGRID_API_KEY": "@sendgrid_api_key"
-  },
-  "functions": {
-    "api/**/*.js": {
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
+      "source": "/api/:path*",
+      "destination": "http://localhost:3000/api/:path*"
     }
   ]
 }

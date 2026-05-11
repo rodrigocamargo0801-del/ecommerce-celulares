@@ -14,13 +14,17 @@ class ProdutosManager {
     // Carregar todos os produtos
     async carregarProdutos() {
         try {
+            console.log('🔄 Carregando produtos...');
             const response = await productAPI.getAll();
+            console.log('✅ Resposta da API:', response.data);
             this.produtos = response.data.products || response.data;
+            console.log('📦 Produtos carregados:', this.produtos.length);
             this.filtrados = [...this.produtos];
             this.renderizar();
+            console.log('✨ Produtos renderizados');
         } catch (error) {
-            console.error('Erro ao carregar produtos:', error);
-            this.mostrarErro('Erro ao carregar produtos');
+            console.error('❌ Erro ao carregar produtos:', error);
+            this.mostrarErro('Erro ao carregar produtos: ' + error.message);
         }
     }
 

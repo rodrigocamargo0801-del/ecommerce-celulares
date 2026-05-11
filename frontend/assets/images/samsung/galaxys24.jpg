@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300">
+  <rect width="200" height="300" fill="#0a0a0a" rx="15"/>
+  <rect x="12" y="18" width="176" height="195" fill="#1a1a1a" rx="8"/>
+  <circle cx="30" cy="30" r="8" fill="#555"/>
+  <text x="100" y="130" font-size="20" fill="#666" text-anchor="middle" font-family="Arial">Samsung</text>
+  <text x="100" y="160" font-size="18" fill="#666" text-anchor="middle" font-family="Arial">Galaxy S24</text>
+  <circle cx="100" cy="250" r="8" fill="#555"/>
+</svg>

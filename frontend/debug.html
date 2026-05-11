@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug API</title>
+</head>
+<body>
+    <h1>🔍 Debug E-commerce API</h1>
+    <div id="resultado"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const resultado = document.getElementById('resultado');
+
+        async function testar() {
+            try {
+                resultado.innerHTML += '<p>🔄 Testando API...</p>';
+
+                // Teste 1: GET /api/products
+                console.log('Teste 1: GET /api/products');
+                const res1 = await axios.get('http://localhost:3000/api/products');
+                resultado.innerHTML += '<p>✅ GET /api/products funcionou!</p>';
+                resultado.innerHTML += '<p>Produtos: ' + res1.data.products?.length + '</p>';
+                resultado.innerHTML += '<pre>' + JSON.stringify(res1.data.products?.[0], null, 2) + '</pre>';
+
+            } catch (error) {
+                resultado.innerHTML += '<p>❌ Erro: ' + error.message + '</p>';
+                console.error(error);
+            }
+        }
+
+        testar();
+    </script>
+</body>
+</html>

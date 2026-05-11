@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - E-commerce Celulares</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .checkout-form {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .checkout-form h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-section h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .resumo {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .resumo h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .resumo-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        .resumo-produto {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .resumo-produto p {
+            margin: 0.25rem 0;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .resumo-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .btn-pagar {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 2rem;
+        }
+
+        .btn-pagar:hover {
+            background-color: #218838;
+        }
+
+        .btn-pagar:disabled {
+            background-color: var(--secondary);
+            cursor: not-allowed;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: block;
+        }
+
+        .alert.success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .resumo {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>📱 Celulares</h1>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="index.html#produtos">Produtos</a>
+                <a href="login.html">Login</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="carrinho.html" class="btn-carrinho">
+                    🛒 Carrinho (<span id="cart-count">0</span>)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout -->
+    <div class="checkout-container">
+        <div class="checkout-form">
+            <div id="alert"></div>
+
+            <form id="form-checkout">
+                <!-- Endereço de Entrega -->
+                <div class="form-section">
+                    <h3>📍 Endereço de Entrega</h3>
+
+                    <div class="form-group">
+                        <label for="rua">Rua:</label>
+                        <input type="text" id="rua" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="numero">Número:</label>
+                            <input type="text" id="numero" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="complemento">Complemento (opcional):</label>
+                            <input type="text" id="complemento">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade">Cidade:</label>
+                        <input type="text" id="cidade" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <input type="text" id="estado" placeholder="SP" maxlength="2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cep">CEP:</label>
+                            <input type="text" id="cep" placeholder="00000-000" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Método de Pagamento -->
+                <div class="form-section">
+                    <h3>💳 Método de Pagamento</h3>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="metodo" value="cartao" checked> Cartão de Crédito
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="metodo" value="pix"> PIX
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="metodo" value="boleto"> Boleto Bancário
+                        </label>
+                    </div>
+
+                    <!-- Dados do Cartão -->
+                    <div id="cartao-dados" style="margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <label for="numero-cartao">Número do Cartão:</label>
+                            <input type="text" id="numero-cartao" placeholder="0000 0000 0000 0000" maxlength="19">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="validade">Validade (MM/AA):</label>
+                                <input type="text" id="validade" placeholder="12/25" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvc">CVC:</label>
+                                <input type="text" id="cvc" placeholder="000" maxlength="3">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="titular">Titular:</label>
+                            <input type="text" id="titular" placeholder="Nome como aparece no cartão">
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem; color: var(--secondary); font-size: 0.85rem;">
+                        <strong>Para teste:</strong> Use 4242 4242 4242 4242 e qualquer data/CVC futura
+                    </p>
+                </div>
+
+                <!-- Observações -->
+                <div class="form-section">
+                    <h3>📝 Observações (Opcional)</h3>
+                    <textarea style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; min-height: 80px;" id="observacoes" placeholder="Digite qualquer observação sobre sua entrega..."></textarea>
+                </div>
+            </form>
+        </div>
+
+        <!-- Resumo -->
+        <div class="resumo">
+            <h2>Resumo do Pedido</h2>
+
+            <div id="resumo-produtos"></div>
+
+            <div class="resumo-item">
+                <span>Subtotal:</span>
+                <span id="subtotal-resumo">R$ 0,00</span>
+            </div>
+            <div class="resumo-item">
+                <span>Frete:</span>
+                <span id="frete-resumo">R$ 50,00</span>
+            </div>
+
+            <div class="resumo-total">
+                <span>Total:</span>
+                <span id="total-resumo">R$ 0,00</span>
+            </div>
+
+            <button class="btn-pagar" id="btn-pagar">Confirmar e Pagar</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 E-commerce Celulares. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/carrinho.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

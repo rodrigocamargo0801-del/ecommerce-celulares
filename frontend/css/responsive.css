@@ -1,0 +1,238 @@
+/* Mobile - até 480px */
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .logo h1 {
+        font-size: 1.4rem;
+    }
+
+    .nav-menu {
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .nav-actions {
+        width: 100%;
+    }
+
+    .btn-carrinho {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .filtros-container {
+        flex-direction: column;
+    }
+
+    .search-box {
+        min-width: auto;
+    }
+
+    .filtros-group {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .filtro-select {
+        width: 100%;
+    }
+
+    .catalogo {
+        padding: 0 1rem;
+    }
+
+    .catalogo h2 {
+        font-size: 1.5rem;
+    }
+
+    .produtos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .produto-imagem {
+        height: 150px;
+        font-size: 2rem;
+    }
+
+    .produto-info {
+        padding: 1rem;
+    }
+
+    .produto-nome {
+        font-size: 0.95rem;
+    }
+
+    .produto-preco {
+        font-size: 1.2rem;
+    }
+}
+
+/* Tablet - 481px até 1024px */
+@media (min-width: 481px) and (max-width: 1024px) {
+    .navbar-container {
+        padding: 1rem 1.5rem;
+    }
+
+    .nav-menu {
+        gap: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .filtros-container {
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        min-width: 100%;
+    }
+
+    .filtros-group {
+        flex-wrap: wrap;
+    }
+
+    .catalogo {
+        padding: 0 1.5rem;
+    }
+
+    .catalogo h2 {
+        font-size: 1.8rem;
+    }
+
+    .produtos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .produto-imagem {
+        height: 180px;
+    }
+}
+
+/* Desktop - acima de 1024px */
+@media (min-width: 1025px) {
+    .navbar-container {
+        flex-wrap: nowrap;
+    }
+
+    .nav-menu {
+        gap: 2rem;
+    }
+
+    .filtros-container {
+        flex-wrap: nowrap;
+    }
+
+    .produtos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+/* Impressão */
+@media print {
+    .navbar,
+    .filtros,
+    .footer {
+        display: none;
+    }
+
+    .catalogo {
+        margin: 0;
+        padding: 0;
+    }
+
+    .produtos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .produto-card {
+        border: 2px solid var(--border);
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-adicionar {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Acessibilidade - Reduzir movimento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Alto contraste */
+@media (prefers-contrast: more) {
+    :root {
+        --primary: #0039c4;
+        --dark: #000000;
+        --light: #ffffff;
+    }
+
+    .produto-card {
+        border-width: 2px;
+    }
+}
+
+/* Modo escuro */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+    }
+
+    .navbar {
+        background-color: #2a2a2a;
+        border-bottom-color: #444;
+    }
+
+    .filtros {
+        background-color: #2a2a2a;
+        border-bottom-color: #444;
+    }
+
+    .produto-card {
+        background-color: #2a2a2a;
+        border-color: #444;
+    }
+
+    .footer {
+        background-color: #1a1a1a;
+        border-top: 2px solid #444;
+    }
+
+    .search-box input,
+    .filtro-select {
+        background-color: #2a2a2a;
+        color: #f0f0f0;
+        border-color: #444;
+    }
+}

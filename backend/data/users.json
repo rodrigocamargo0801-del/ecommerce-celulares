@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": "user001",
+      "nome": "Rodrigo Camargo",
+      "email": "rodrigocamargo0801@gmail.com",
+      "senha": "$2b$10$abcdefghijklmnopqrstuvwxyz",
+      "telefone": "(11) 98765-4321",
+      "endereco": {
+        "rua": "Rua das Flores",
+        "numero": "123",
+        "complemento": "Apt 101",
+        "cidade": "São Paulo",
+        "estado": "SP",
+        "cep": "01234-567"
+      },
+      "tipo": "admin",
+      "criado_em": "2024-01-01"
+    },
+    {
+      "id": "user002",
+      "nome": "João Silva",
+      "email": "joao@email.com",
+      "senha": "$2b$10$abcdefghijklmnopqrstuvwxyz",
+      "telefone": "(11) 99876-5432",
+      "endereco": {
+        "rua": "Avenida Paulista",
+        "numero": "1000",
+        "complemento": "Sala 50",
+        "cidade": "São Paulo",
+        "estado": "SP",
+        "cep": "01311-100"
+      },
+      "tipo": "cliente",
+      "criado_em": "2024-01-05"
+    },
+    {
+      "id": "user003",
+      "nome": "Maria Santos",
+      "email": "maria@email.com",
+      "senha": "$2b$10$abcdefghijklmnopqrstuvwxyz",
+      "telefone": "(21) 99988-7654",
+      "endereco": {
+        "rua": "Rua do Ouvidor",
+        "numero": "50",
+        "complemento": "",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ",
+        "cep": "20040-020"
+      },
+      "tipo": "cliente",
+      "criado_em": "2024-01-10"
+    }
+  ]
+}

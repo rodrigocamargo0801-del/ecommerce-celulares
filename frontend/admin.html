@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - E-commerce Celulares</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            background: var(--dark);
+            color: white;
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .admin-sidebar h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .admin-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .admin-nav a:hover,
+        .admin-nav a.active {
+            background-color: var(--primary);
+        }
+
+        .admin-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-header h1 {
+            color: var(--dark);
+        }
+
+        .btn-logout {
+            background-color: var(--danger);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-valor {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Tabelas */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-container th {
+            background-color: var(--light);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .table-container td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-container tr:hover {
+            background-color: var(--light);
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-container h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-salvar {
+            background-color: var(--success);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-cancelar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                position: static;
+                height: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <h3>Painel Admin</h3>
+            <nav class="admin-nav">
+                <a href="#dashboard" onclick="mostrarSeccao('dashboard')" class="active">📊 Dashboard</a>
+                <a href="#produtos" onclick="mostrarSeccao('produtos')">📱 Produtos</a>
+                <a href="#pedidos" onclick="mostrarSeccao('pedidos')">📦 Pedidos</a>
+                <a href="#usuarios" onclick="mostrarSeccao('usuarios')">👥 Usuários</a>
+                <hr style="margin: 1rem 0; opacity: 0.3;">
+                <button onclick="logout()" class="btn-logout">🚪 Logout</button>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Painel de Administração</h1>
+                <span id="admin-user">Admin</span>
+            </div>
+
+            <!-- Dashboard -->
+            <section id="dashboard" class="section active">
+                <h2>Dashboard</h2>
+                <div class="stats-grid" id="stats-container"></div>
+
+                <h3 style="margin-top: 2rem;">Produtos Mais Vendidos</h3>
+                <div class="table-container" style="margin-top: 1rem;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade Vendida</th>
+                                <th>Receita</th>
+                            </tr>
+                        </thead>
+                        <tbody id="top-produtos"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Produtos -->
+            <section id="produtos" class="section">
+                <h2>Gerenciar Produtos</h2>
+
+                <div style="margin: 1.5rem 0;">
+                    <button class="btn-primary" onclick="mostrarFormProduto()">+ Novo Produto</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Marca</th>
+                                <th>Preço</th>
+                                <th>Estoque</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="produtos-table"></tbody>
+                    </table>
+                </div>
+
+                <div id="form-produto-container" style="display: none; margin-top: 2rem;"></div>
+            </section>
+
+            <!-- Pedidos -->
+            <section id="pedidos" class="section">
+                <h2>Gerenciar Pedidos</h2>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pedidos-table"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Usuários -->
+            <section id="usuarios" class="section">
+                <h2>Gerenciar Usuários</h2>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Tipo</th>
+                                <th>Pedidos</th>
+                                <th>Membro Desde</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-table"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

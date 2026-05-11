@@ -1,0 +1,79 @@
+{
+  "orders": [
+    {
+      "id": "order001",
+      "usuario_id": "user002",
+      "data": "2024-01-15",
+      "status": "entregue",
+      "produtos": [
+        {
+          "produto_id": "001",
+          "nome": "iPhone 15 Pro",
+          "preco_unitario": 4999.00,
+          "quantidade": 1,
+          "subtotal": 4999.00
+        }
+      ],
+      "subtotal": 4999.00,
+      "taxa_envio": 50.00,
+      "total": 5049.00,
+      "pagamento": {
+        "metodo": "cartao",
+        "status": "pago",
+        "stripe_id": "pi_1234567890",
+        "data_pagamento": "2024-01-15"
+      },
+      "endereco_entrega": {
+        "rua": "Avenida Paulista",
+        "numero": "1000",
+        "complemento": "Sala 50",
+        "cidade": "São Paulo",
+        "estado": "SP",
+        "cep": "01311-100"
+      },
+      "email_enviado": true,
+      "observacoes": ""
+    },
+    {
+      "id": "order002",
+      "usuario_id": "user003",
+      "data": "2024-01-16",
+      "status": "enviado",
+      "produtos": [
+        {
+          "produto_id": "002",
+          "nome": "Samsung Galaxy S24",
+          "preco_unitario": 4499.00,
+          "quantidade": 1,
+          "subtotal": 4499.00
+        },
+        {
+          "produto_id": "005",
+          "nome": "Samsung Galaxy A54",
+          "preco_unitario": 1999.00,
+          "quantidade": 1,
+          "subtotal": 1999.00
+        }
+      ],
+      "subtotal": 6498.00,
+      "taxa_envio": 50.00,
+      "total": 6548.00,
+      "pagamento": {
+        "metodo": "pix",
+        "status": "pago",
+        "stripe_id": "pi_0987654321",
+        "data_pagamento": "2024-01-16"
+      },
+      "endereco_entrega": {
+        "rua": "Rua do Ouvidor",
+        "numero": "50",
+        "complemento": "",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ",
+        "cep": "20040-020"
+      },
+      "email_enviado": true,
+      "observacoes": "Entrega preferencial em horário comercial"
+    }
+  ]
+}

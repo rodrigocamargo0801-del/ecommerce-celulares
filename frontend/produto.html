@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto - E-commerce Celulares</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .produto-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .produto-imagem-grande {
+            background: #f0f0f0;
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .produto-imagem-grande img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
+        .produto-detalhes {
+            padding: 2rem;
+        }
+
+        .produto-detalhes h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .produto-marca {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .produto-preco-grande {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .produto-desconto-grande {
+            font-size: 1.2rem;
+            color: var(--danger);
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .produto-rating-grande {
+            color: #ffc107;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .produto-estoque-grande {
+            padding: 1rem;
+            background: #e7f3ff;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        .especificacoes {
+            margin: 2rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .especificacoes h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .spec-item {
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 4px;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .spec-valor {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-top: 0.5rem;
+        }
+
+        .descricao {
+            margin: 2rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            line-height: 1.8;
+            color: var(--secondary);
+        }
+
+        .acoes {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-comprar {
+            flex: 1;
+            padding: 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-comprar:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-comprar:disabled {
+            background-color: var(--secondary);
+            cursor: not-allowed;
+        }
+
+        .btn-voltar {
+            padding: 1rem 2rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background-color: #5a6268;
+        }
+
+        .quantidade-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quantidade-selector label {
+            font-weight: 600;
+        }
+
+        .quantidade-selector input {
+            width: 100px;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .produto-container {
+                grid-template-columns: 1fr;
+            }
+
+            .especificacoes {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .acoes {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>📱 Celulares</h1>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="index.html#produtos">Produtos</a>
+                <a href="login.html">Login</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="carrinho.html" class="btn-carrinho">
+                    🛒 Carrinho (<span id="cart-count">0</span>)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> / <a href="index.html#produtos">Produtos</a> / <span id="breadcrumb-produto">Produto</span>
+    </div>
+
+    <!-- Detalhes do Produto -->
+    <div id="conteudo">
+        <div class="produto-container" id="produto-detalhes">
+            <div class="loading">Carregando...</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 E-commerce Celulares. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/produto-detalhe.js"></script>
+</body>
+</html>
